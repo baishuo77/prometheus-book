@@ -14,7 +14,7 @@ groups:
     expr: job:request_latency_seconds:mean5m{job="myjob"} > 0.5
     for: 10m
     labels:
-      severity: page
+      severity: page              #告警规则定义的标签，将被alertmanager的match或者match_re来匹配，进行告警的路由
     annotations:
       summary: High request latency
       description: description info

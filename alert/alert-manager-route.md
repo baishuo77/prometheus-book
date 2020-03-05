@@ -72,7 +72,8 @@ route:
   - receiver: 'frontend-pager'
     group_by: [product, environment]
     match:
-      team: frontend
+      team: frontend      #这里match的是告警规则rule中的label，
+                          #alertmanager只负责发送告警信息，与报警规则如何定义无关
 ```
 
 默认情况下所有的告警都会发送给集群管理员default-receiver，因此在Alertmanager的配置文件的根路由中，对告警信息按照集群以及告警的名称对告警进行分组。

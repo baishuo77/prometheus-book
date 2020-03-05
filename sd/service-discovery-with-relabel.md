@@ -82,6 +82,19 @@ scrape_configs:
     - source_labels:  ["__meta_consul_dc"]
       target_label: "dc"
 ```
+下一个例子：
+
+```
+    relabel_configs:
+    - source_labels: [__address__]      #从metric自带的metadata标签中，匹配哪个label name
+      regex: (.*)                       #正则表达式匹配label 的value，默认是(.*)
+      target_label: instance            #要更改的新的label
+      replacement: $1                   #为新的label赋值，这里$1代表正则捕获到的值
+    - source_labels: [__address__]
+      regex: (.*)
+      target_label: __address__
+      replacement: $1:9100
+```
 
 该采集任务通过Consul动态发现Node Exporter实例信息作为监控采集目标。在上一小节中，我们知道通过Consul动态发现的监控Target都会包含一些额外的Metadata标签，比如标签__meta_consul_dc表明了当前实例所在的Consul数据中心，因此我们希望从这些实例中采集到的监控样本中也可以包含这样一个标签，例如：
 
